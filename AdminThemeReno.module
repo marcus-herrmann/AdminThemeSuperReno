@@ -1,0 +1,66 @@
+<?php
+
+class AdminThemeReno extends AdminTheme implements Module, ConfigurableModule {
+
+	/**
+	 * Per the Module interface, return an array of information about the Module
+	 *
+ 	 */
+	public static function getModuleInfo() {
+		return array(
+			'title' => 'Admin Theme Reno',
+			'version' => 1,
+			'summary' => "Beta admin theme for Processwire 2.5",
+			'autoload' => "template=admin"
+			); 
+	}
+
+	public function init() {
+		parent::init(); 
+		if($this->isCurrent()) {
+			// this is the current admin theme
+		}
+	}
+
+	public function ___install() {
+		parent::___install();
+	}
+
+	public static function getModuleConfigInputfields(array $data) {
+		$inputfields = new InputfieldWrapper();
+		$field = wire('modules')->get('InputfieldRadios');
+		$field->attr('name', 'colors');
+		$field->label = __('Color Set'); 
+		$field->addOption('', __('Reno'));
+		$field->addOption('classic', __('Classic'));
+		$field->addOption('blue', __('Blue'));
+		$field->attr('value', isset($data['colors']) ? $data['colors'] : ''); 
+		$field->optionColumns = 1; 
+		$inputfields->add($field);
+
+		$template = wire('templates')->get("user");
+		$field = wire('modules')->get("InputfieldSelect"); 
+		$field->attr('name', 'avatar_field'); 
+		$field->label = "User image field";
+		$field->description = "There must be at least one image field assigned to the 'user' template. To add fields to the user template to go Setup > Templates > Filters (Show System Templates). The 'user' template will now show in the list. Add an image field to the 'user' template.";
+		$imageField = false;
+
+		foreach($template->fields as $f) {
+			if(($f->type == "FieldtypeImage") || ($f->type == "FieldtypeCropImage")){
+				if(isset($data['avatar_field']) && $data['avatar_field'] == $f->name) {
+					$field->addOption($f->name, $f->name, array("selected"=>"selected"));
+					$imageField = true;
+				} else {
+					$field->addOption($f->name, $f->name);
+					$imageField = true;
+				}
+			}
+		}
+
+		if ($imageField === false) $field->addOption('', 'No image fields assigned to the user template');
+		$inputfields->add($field);
+
+		return $inputfields;
+	}
+
+}
