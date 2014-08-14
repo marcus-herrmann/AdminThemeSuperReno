@@ -242,11 +242,11 @@ class AdminThemeRenoHelpers extends WireData {
 				count($imgField) ? $img = $imgField->first() : $img = $imgField;
 				$out .= "<li class='avatar'><a href='{$config->urls->admin}profile/'>";
 				$userImg = $img->size(48,48); // render at 2x for hi-dpi
-				$out .= "<img src={$img->url} /> {$user->name} ";
+				$out .= "<img src={$img->url} /> <span>{$user->name}</span>";
 				$out .= "</a></li>";
 
 			} else {
-				$out .= "<li><a href='{$config->urls->admin}profile/'><i class='fa fa-user'></i> {$user->name}</a></li>";
+				$out .= "<li><a href='{$config->urls->admin}profile/'><i class='fa fa-user'></i> <span>{$user->name}</span></a></li>";
 			}
 		
 		// view site

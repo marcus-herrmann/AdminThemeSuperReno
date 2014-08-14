@@ -26,17 +26,6 @@ $box-shadow: 0 1px 4px rgba(0,0,0,0.4);
  * GENERAL
  *
  */
-/*
-
-.WireTabs *, 
-.InputfieldContent > *,
-.InputfieldContent > *:before,
-.InputfieldContent > *:after {
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-}
-*/
 
 *, *:before, *:after {
 	-moz-box-sizing: border-box; 
@@ -205,6 +194,7 @@ body.id-23 {
 	#topnav {
 		float: right; 
 		border-right: $topnav-border;
+		position: relative;
 
 		> li {
 			padding: 0;
@@ -428,7 +418,6 @@ body.id-23 {
 		color: $mainnav-link-current-color;
 	}
 	
-	
 	#main-nav a.current:not(.parent){
 		background: $mainnav-link-current-bg;
 		color: $mainnav-link-current-color;
@@ -491,7 +480,7 @@ body.id-23 {
 	#main-nav li ul li ul {
 		position: absolute;
 		left: 210px;
-		//z-index: 1000;
+		z-index: 10;
 		top: 0;
 		bottom: 0;
 		padding: 0 0 20px 0;
@@ -671,7 +660,6 @@ body.id-23 {
 		i.fa{
 			font-size: 14px;
 		}
-
 	}
 
 }
@@ -684,9 +672,7 @@ body.hasWireTabs #breadcrumbs {
 	float: right;
 	margin: 0 0 0 0.5em; 
 	padding: 0 0 0 0;
-	width: 300px;
-	max-width: 300px; 
-	min-width: 90px;
+	
 	height: $masthead-height;
 	border-left: $mainnav-toggle-border;
 
@@ -700,7 +686,7 @@ body.hasWireTabs #breadcrumbs {
 	#ProcessPageSearchQuery {
 		margin: 0;
 		height: auto; 
-		width: 100%; 
+		width: 300px;
 		height: 100%;
 		background: $search-bg; 
 		border: none; 
@@ -749,7 +735,7 @@ body.hasWireTabs #breadcrumbs {
 	border-radius: 0 !important;
 	max-height: 100%;
 	overflow-y: auto;
-	max-width: 300px;
+	width: 300px;
 	top: 0 !important;
 	z-index: 7 !important;
 	border-top: $masthead-height solid $masthead-bg !important;
@@ -995,7 +981,7 @@ body.hasWireTabs #breadcrumbs {
 		.PageListMoveNote a:hover {
 			/* action links hovered */
 			color: $action-link-hover-color !important; 
-			background: $action-link-hover-bg; 
+			background: $action-link-hover-bg ; 
 			border: $action-link-hover-border; 
 		}
 		
@@ -1383,6 +1369,7 @@ p.description {
 #ProcessListerResults{
 	padding: 20px;
 	border: 1px solid #d9e1ea;
+	margin-bottom: 20px;
 
 	&:after {
   		content: "";
@@ -1644,7 +1631,7 @@ body:not(.hasWireTabs) #headline .container {
 	}
 }
 
-@media only screen and (max-width: 620px) {
+@media only screen and (max-width: 720px) {
 
 	#sidebar{
 		width: 95%;
@@ -1670,14 +1657,14 @@ body:not(.hasWireTabs) #headline .container {
 		img.sm { display: block;}
 	}
 
-	#ProcessPageSearchForm {
-		width: 170px;
+	#ProcessPageSearchQuery {
+		width: 200px !important;
 		transform: all 50ms ease-in;
 		margin: 0;
 	}
 
-	#topnav {
-		display:none;
+	.avatar > a > span {
+		display: none;
 	}
 
 	/**
@@ -1696,6 +1683,36 @@ body:not(.hasWireTabs) #headline .container {
 	#footer #userinfo {
 		float: none;
 	}
+
+}
+@media only screen and (max-width: 500px) {
+	
+	#topnav {
+		position: relative !important;
+	}
+	#topnav > li:not(:last-child) > a {
+		padding-right: 0.3em !important;
+		padding-left: 0.3em !important;
+	}
+
+	#ProcessPageSearchQuery {
+		padding-right: 0 !important;
+		width: 160px !important;
+	}
+
+}
+
+@media only screen and (max-width: 380px) {
+	
+	#logo {
+		display: none;
+	}
+
+	#ProcessPageSearchQuery {
+		padding-right: 0 !important;
+		width: 130px !important;
+	}
+	
 
 }
 

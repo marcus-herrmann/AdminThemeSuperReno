@@ -3233,17 +3233,6 @@ ul.Inputfields #wrap_login_pass {
  * GENERAL
  *
  */
-/*
-
-.WireTabs *, 
-.InputfieldContent > *,
-.InputfieldContent > *:before,
-.InputfieldContent > *:after {
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-}
-*/
 *, *:before, *:after {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -3398,7 +3387,8 @@ body.id-23 #logo {
 }
 #masthead #topnav {
 	float: right;
-	border-right: none; 
+	border-right: none;
+	position: relative; 
 }
 #masthead #topnav > li {
 	padding: 0;
@@ -3637,6 +3627,7 @@ body.id-23 #logo {
 #sidebar #main-nav li ul li ul {
 	position: absolute;
 	left: 210px;
+	z-index: 10;
 	top: 0;
 	bottom: 0;
 	padding: 0 0 20px 0;
@@ -3786,9 +3777,6 @@ body.id-23 #logo {
 	float: right;
 	margin: 0 0 0 0.5em;
 	padding: 0 0 0 0;
-	width: 300px;
-	max-width: 300px;
-	min-width: 90px;
 	height: 48px;
 	border-left: 1px solid #374d54; 
 }
@@ -3801,7 +3789,7 @@ body.id-23 #logo {
 #ProcessPageSearchForm #ProcessPageSearchQuery {
 	margin: 0;
 	height: auto;
-	width: 100%;
+	width: 300px;
 	height: 100%;
 	background: #2f4248;
 	border: none;
@@ -3864,7 +3852,7 @@ body.id-23 #logo {
 	border-radius: 0 !important;
 	max-height: 100%;
 	overflow-y: auto;
-	max-width: 300px;
+	width: 300px;
 	top: 0 !important;
 	z-index: 7 !important;
 	border-top: 48px solid #2f4248 !important; 
@@ -4383,7 +4371,8 @@ p.description {
 
 #ProcessListerResults {
 	padding: 20px;
-	border: 1px solid #d9e1ea; 
+	border: 1px solid #d9e1ea;
+	margin-bottom: 20px; 
 }
 #ProcessListerResults:after {
 	content: "";
@@ -4602,7 +4591,7 @@ body #content .WireTabs li a.on {
 		background: #db1174;
 		color: white; 
 } }
-@media only screen and (max-width: 620px) {
+@media only screen and (max-width: 720px) {
 #sidebar {
 		width: 95%;
 		display: none; 
@@ -4628,13 +4617,13 @@ body #content .WireTabs li a.on {
 		display: block; 
 }
 
-#ProcessPageSearchForm {
-		width: 170px;
+#ProcessPageSearchQuery {
+		width: 200px !important;
 		transform: all 50ms ease-in;
 		margin: 0; 
 }
 
-#topnav {
+.avatar > a > span {
 		display: none; 
 }
 
@@ -4654,6 +4643,29 @@ body #content .WireTabs li a.on {
 
 #footer #userinfo {
 		float: none; 
+} }
+@media only screen and (max-width: 500px) {
+#topnav {
+		position: relative !important; 
+}
+
+#topnav > li:not(:last-child) > a {
+		padding-right: 0.3em !important;
+		padding-left: 0.3em !important; 
+}
+
+#ProcessPageSearchQuery {
+		padding-right: 0 !important;
+		width: 160px !important; 
+} }
+@media only screen and (max-width: 380px) {
+#logo {
+		display: none; 
+}
+
+#ProcessPageSearchQuery {
+		padding-right: 0 !important;
+		width: 130px !important; 
 } }
 @media only screen and (max-width: 320px) {
 #content, #headline, #breadcrumbs {

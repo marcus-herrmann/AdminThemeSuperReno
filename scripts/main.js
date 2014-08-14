@@ -236,7 +236,7 @@ var ProcessWireAdminTheme = {
 		}).blur(function() {
 			$status.text('');	
 		});
-		
+
 	},
 
 	setupDropdowns: function() {
