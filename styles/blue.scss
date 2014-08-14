@@ -253,7 +253,7 @@ body.id-23 {
 		.quicklinks{
 			padding: 1em;
 			i.fa {
-				font-size: 1.4em !important;
+				font-size: 14px !important;
 			}
 		}
 		
@@ -414,9 +414,8 @@ body.id-23 {
 		margin: 0 0 1px 0;
 	}
 
-	#main-nav > li > a:before{
-		content: "";
-		font-family: "fontAwesome";
+	#main-nav > li > a > i{
+		
 		color: $mainnav-icon-color;
 		padding: 0;
 		margin: 0 8px 0 0;
@@ -426,18 +425,9 @@ body.id-23 {
 		font-size: 14px; // font awesome renders clearer at 14px;
 	}
 
-	#main-nav > li > a.current:not(.parent):before{
+	#main-nav > li > a.current:not(.parent) > i{
 		color: $mainnav-link-current-color;
 	}
-
-	#main-nav li a.page:before{content: "\f15c"}
-	#main-nav li a.setup:before{ content: "\f0ad" }
-	#main-nav li a.module:before{ content: "\f0b1"}
-	#main-nav li a.access:before{ content: "\f13e"}
-	#main-nav li a.form-builder:before{ content: "\f022"}
-	#main-nav li a.the-loop:before{ content: "\f0a1"}
-	#main-nav li a.syllabi:before{ content: "\f02d"}
-	#main-nav li a.dashboard:before{ content: "\f0e4"}
 	
 	#main-nav a.current:not(.parent){
 		background: $mainnav-link-current-bg;

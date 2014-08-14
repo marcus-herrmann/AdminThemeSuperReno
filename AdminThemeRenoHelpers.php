@@ -250,10 +250,10 @@ class AdminThemeRenoHelpers extends WireData {
 			}
 		
 		// view site
-		$out .= "<li><a href='{$config->urls->root}'><i class='fa fa-home'></i></a></li>";
+		$out .= "<li><a href='{$config->urls->root}'><i class='fa {$adminTheme->home}'></i></a></li>";
 
 		// logout
-		$out .= "<li><a href='{$config->urls->admin}login/logout/'><i class='fa fa-times'></i> </a></li>";
+		$out .= "<li><a href='{$config->urls->admin}login/logout/'><i class='fa {$adminTheme->signout}'></i></a></li>";
 
 	return $out;
 
@@ -277,6 +277,9 @@ class AdminThemeRenoHelpers extends WireData {
 		$adminURL = $this->wire('config')->urls->admin;
 		$quicklinks = array('11','16'); // array of page ids that use quicklinks.
 		$out = '';
+		$iconName = $p->name;
+
+		$adminTheme = $this->wire('adminTheme');
 		
 		// don't bother with a drop-down here if only 1 child
 		if($p->name == 'page' && !$isSuperuser) $children = array();
@@ -303,7 +306,8 @@ class AdminThemeRenoHelpers extends WireData {
 	
 		if(count($children)) {
 
-		$out .= "<a href='$p->url' class='$class $p->name '>$title</a>"; 
+		
+		$out .= "<a href='$p->url' class='$class $p->name '><i class='fa {$adminTheme->$iconName}'></i> $title</a>"; 
 		$out .= "<ul>";
 
 		foreach($children as $c) {
@@ -339,7 +343,7 @@ class AdminThemeRenoHelpers extends WireData {
 		if(strpos($url, '/page/list/') !== false) $url = str_replace('/page/list/', '/page/', $url); 
 		
 		$class = $class ? " class='$class $p->name'" : "class='$p->name'";
-		$out .= "<a href='$p->url' $class>$title</a>"; 
+		$out .= "<a href='$p->url' $class><i class='fa {$adminTheme->$iconName}'></i> $title</a>"; 
 
 	}
 
