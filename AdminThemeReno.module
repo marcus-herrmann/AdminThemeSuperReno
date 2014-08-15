@@ -3,16 +3,16 @@
 class AdminThemeReno extends AdminTheme implements Module, ConfigurableModule {
 
 	/**
-	 * Per the Module interface, return an array of information about the Module
-	 *
- 	 */
+	* Per the Module interface, return an array of information about the Module
+	*
+	*/
 	public static function getModuleInfo() {
-		return array(
-			'title' => 'Admin Theme Reno',
-			'version' => 3,
-			'summary' => "Beta admin theme for Processwire 2.5",
-			'autoload' => "template=admin"
-			); 
+	return array(
+		'title' => 'Admin Theme Reno',
+		'version' => 3,
+		'summary' => "Beta admin theme for Processwire 2.5",
+		'autoload' => "template=admin"
+	); 
 	}
 
 	public function init() {
@@ -24,9 +24,9 @@ class AdminThemeReno extends AdminTheme implements Module, ConfigurableModule {
 	}
 
 	public static function getModuleConfigInputfields(array $data) {
-		
+
 		$inputfields = new InputfieldWrapper();
-		
+
 		// colorscheme
 		$field = wire('modules')->get('InputfieldRadios');
 		$field->attr('name', 'colors');
@@ -51,6 +51,7 @@ class AdminThemeReno extends AdminTheme implements Module, ConfigurableModule {
 				if(isset($data['avatar_field']) && $data['avatar_field'] == $f->name) {
 					$field->addOption($f->name, $f->name, array("selected"=>"selected"));
 					$imageField = true;
+				
 				} else {
 					$field->addOption($f->name, $f->name);
 					$imageField = true;
@@ -59,32 +60,32 @@ class AdminThemeReno extends AdminTheme implements Module, ConfigurableModule {
 		}
 
 		if ($imageField === false) $field->addOption('', 'No image fields assigned to the user template');
-		
+
 		$inputfields->add($field);
 
 		// Icons
 		$fieldset = wire('modules')->get("InputfieldFieldset");
 		$fieldset->label = "Icons";
 		$fieldset->description = "Specify icons for navigation items";
-	    $fieldset->icon = "fa-cog";
-	    $fieldset->collapsed = true;
+		$fieldset->icon = "fa-cog";
+		$fieldset->collapsed = true;
 
-	    // view homepage icon
-	    $field = wire('modules')->get("InputfieldText");
+		// view homepage icon
+		$field = wire('modules')->get("InputfieldText");
 		$field->attr('name', "home");
 		$field->label = "Top Navigation: View Home Page";
 		$field->columnWidth = 50;
 		$field->attr('value', isset($data['view_homepage']) ? $data['home'] : 'fa-home'); 
-		
+
 		$fieldset->add($field);
 
 		// signout
-	    $field = wire('modules')->get("InputfieldText");
+		$field = wire('modules')->get("InputfieldText");
 		$field->attr('name', "signout");
 		$field->label = "Top Navigation: Sign out";
 		$field->columnWidth = 50;
 		$field->attr('value', isset($data['signout']) ? $data['signout'] : 'fa-power-off'); 
-		
+
 		$fieldset->add($field);
 
 		// default sidebar icons
@@ -98,7 +99,7 @@ class AdminThemeReno extends AdminTheme implements Module, ConfigurableModule {
 
 		// get viewable admin pages
 		$adminPages = wire('pages')->find("parent=2, sort=sort");
-		
+
 		foreach ($adminPages as $p){
 
 			if (!$p->viewable()) return;
@@ -117,5 +118,4 @@ class AdminThemeReno extends AdminTheme implements Module, ConfigurableModule {
 
 		return $inputfields;
 	}
-
 }
