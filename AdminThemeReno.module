@@ -16,10 +16,7 @@ class AdminThemeReno extends AdminTheme implements Module, ConfigurableModule {
 	}
 
 	public function init() {
-		parent::init(); 
-		if($this->isCurrent()) {
-			// this is the current admin theme
-		}
+		parent::init();
 	}
 
 	public function ___install() {
@@ -27,6 +24,7 @@ class AdminThemeReno extends AdminTheme implements Module, ConfigurableModule {
 	}
 
 	public static function getModuleConfigInputfields(array $data) {
+		
 		$inputfields = new InputfieldWrapper();
 		
 		// colorscheme
@@ -61,6 +59,7 @@ class AdminThemeReno extends AdminTheme implements Module, ConfigurableModule {
 		}
 
 		if ($imageField === false) $field->addOption('', 'No image fields assigned to the user template');
+		
 		$inputfields->add($field);
 
 		// Icons
@@ -70,47 +69,49 @@ class AdminThemeReno extends AdminTheme implements Module, ConfigurableModule {
 	    $fieldset->icon = "fa-cog";
 	    $fieldset->collapsed = true;
 
-		    // view homepage icon
-		    $field = wire('modules')->get("InputfieldText");
-			$field->attr('name', "home");
-			$field->label = "Top Navigation: View Home Page";
-			$field->columnWidth = 50;
-			$field->attr('value', isset($data['view_homepage']) ? $data['home'] : 'fa-home'); 
+	    // view homepage icon
+	    $field = wire('modules')->get("InputfieldText");
+		$field->attr('name', "home");
+		$field->label = "Top Navigation: View Home Page";
+		$field->columnWidth = 50;
+		$field->attr('value', isset($data['view_homepage']) ? $data['home'] : 'fa-home'); 
+		
+		$fieldset->add($field);
+
+		// signout
+	    $field = wire('modules')->get("InputfieldText");
+		$field->attr('name', "signout");
+		$field->label = "Top Navigation: Sign out";
+		$field->columnWidth = 50;
+		$field->attr('value', isset($data['signout']) ? $data['signout'] : 'fa-power-off'); 
+		
+		$fieldset->add($field);
+
+		// default sidebar icons
+		$defaultIcons = array(
+			"page" => "fa-file-text",
+			"setup" => "fa-wrench",
+			"module" => "fa-briefcase",
+			"access" => "fa-unlock",
+			"form-builder" => "fa-list-alt",
+		);
+
+		// get viewable admin pages
+		$adminPages = wire('pages')->find("parent=2, sort=sort");
+		
+		foreach ($adminPages as $p){
+
+			if (!$p->viewable()) return;
+
+			$field = wire('modules')->get("InputfieldText");
+			$field->attr('name', $p->name);
+			$field->label = $p->title;
+			$field->columnWidth = 25;
+			$field->attr('value', array_key_exists($p->name, $defaultIcons) ? $defaultIcons[$p->name] : "fa-file-text-o");
+			if (isset($data[$p->name])) $field->attr('value', $data[$p->name]);
+
 			$fieldset->add($field);
-
-			// signout
-		    $field = wire('modules')->get("InputfieldText");
-			$field->attr('name', "signout");
-			$field->label = "Top Navigation: Sign out";
-			$field->columnWidth = 50;
-			$field->attr('value', isset($data['signout']) ? $data['signout'] : 'fa-power-off'); 
-			$fieldset->add($field);
-
-			// default sidebar icons
-			$defaultIcons = array(
-				"page" => "fa-file-text",
-				"setup" => "fa-wrench",
-				"module" => "fa-briefcase",
-				"access" => "fa-unlock",
-				"form-builder" => "fa-list-alt",
-			);
-
-			// get viewable admin pages
-			$adminPages = wire('pages')->find("parent=2, sort=sort");
-			
-			foreach ($adminPages as $p){
-
-				if (!$p->viewable()) return;
-
-				$field = wire('modules')->get("InputfieldText");
-				$field->attr('name', $p->name);
-				$field->label = $p->title;
-				$field->columnWidth = 25;
-				$field->attr('value', array_key_exists($p->name, $defaultIcons) ? $defaultIcons[$p->name] : "fa-file-text-o");
-				if (isset($data[$p->name])) $field->attr('value', $data[$p->name]);
-
-				$fieldset->add($field);
-			}
+		}
 
 		$inputfields->add($fieldset);
 
