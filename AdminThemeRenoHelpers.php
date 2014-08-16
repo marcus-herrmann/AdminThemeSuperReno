@@ -26,6 +26,11 @@ class AdminThemeRenoHelpers extends WireData {
 		return __($text, $this->wire('config')->paths->root . 'wire/templates-admin/default.php'); 
 	}
 
+	public function adminTheme() { 
+		$adminTheme = $this->wire('adminTheme');
+		return $adminTheme; 
+	}
+
 	/**
 	 * Get the headline for the current admin page
 	 *
@@ -278,8 +283,7 @@ class AdminThemeRenoHelpers extends WireData {
 		$quicklinks = array('11','16'); // array of page ids that use quicklinks.
 		$out = '';
 		$iconName = $p->name;
-
-		$adminTheme = $this->wire('adminTheme');
+		$this->adminTheme()->$iconName ? $icon = $this->adminTheme()->$iconName : $icon = 'fa-file-text-o';
 		
 		// don't bother with a drop-down here if only 1 child
 		if($p->name == 'page' && !$isSuperuser) $children = array();
@@ -302,50 +306,51 @@ class AdminThemeRenoHelpers extends WireData {
 		$class .= count($children) > 0 ? " parent" : ''; // parent class
 		$title = strip_tags((string)$p->get('title|name')); 
 		$title = $this->_($title); // translate from context of default.php
+		
+
 		$out .= "<li>";
 	
 		if(count($children)) {
-
-		
-		$out .= "<a href='$p->url' class='$class $p->name '><i class='fa {$adminTheme->$iconName}'></i> $title</a>"; 
-		$out .= "<ul>";
-
-		foreach($children as $c) {
 			
-			$showQuickLinks = false;
-			$class = strpos(wire('page')->path, $c->path) === 0 ? 'current' : ''; // child current class
-			
-			if($c->viewable()) {
+			$out .= "<a href='$p->url' class='$class $p->name '><i class='fa {$icon}'></i> $title</a>"; 
+			$out .= "<ul>";
 
-				$isSuperuser && in_array($c->id, $quicklinks) ? $showQuickLinks = true : '';
-				$showQuickLinks ? $qlink = "<i class='quicklink-open fa fa-bolt'></i>" : $qlink = '';
+			foreach($children as $c) {
 				
-				$out .= "<li><a href='$c->url' class='$class'>" . $this->_($c->title) . $qlink ."</a>";
+				$showQuickLinks = false;
+				$class = strpos(wire('page')->path, $c->path) === 0 ? 'current' : ''; // child current class
+				
+				if($c->viewable()) {
+
+					$isSuperuser && in_array($c->id, $quicklinks) ? $showQuickLinks = true : '';
+					$showQuickLinks ? $qlink = "<i class='quicklink-open fa fa-bolt'></i>" : $qlink = '';
 					
-					if ($showQuickLinks){
-						$c->id == 11 ? $type = "templates" : '';
-						$c->id == 16 ? $type = "fields" : '';
-						$out .= $this->renderQuicklinks(wire($type)); // not thrilled with this solution. Explore options.
-					}
-			
-				$out .= "</li>";
+					$out .= "<li><a href='$c->url' class='$class'>" . $this->_($c->title) . $qlink ."</a>";
+						
+						if ($showQuickLinks){
+							$c->id == 11 ? $type = "templates" : '';
+							$c->id == 16 ? $type = "fields" : '';
+							$out .= $this->renderQuicklinks(wire($type)); // not thrilled with this solution. Explore options.
+						}
 				
+					$out .= "</li>";
+					
+				}
 			}
+
+			$out .= "</ul>";
+
+		} else {
+
+			$url = $p->url;
+			
+			// The /page/ and /page/list/ are the same process, so just keep them on /page/ instead. 
+			if(strpos($url, '/page/list/') !== false) $url = str_replace('/page/list/', '/page/', $url); 
+			
+			$class = $class ? " class='$class $p->name'" : "class='$p->name'";
+			$out .= "<a href='$p->url' $class><i class='fa {$icon}'></i> $title</a>"; 
+
 		}
-
-		$out .= "</ul>";
-
-	} else {
-
-		$url = $p->url;
-		
-		// The /page/ and /page/list/ are the same process, so just keep them on /page/ instead. 
-		if(strpos($url, '/page/list/') !== false) $url = str_replace('/page/list/', '/page/', $url); 
-		
-		$class = $class ? " class='$class $p->name'" : "class='$p->name'";
-		$out .= "<a href='$p->url' $class><i class='fa {$adminTheme->$iconName}'></i> $title</a>"; 
-
-	}
 
 	$out .= "</li>";
 

@@ -7,24 +7,42 @@ class AdminThemeReno extends AdminTheme implements Module, ConfigurableModule {
 	*
 	*/
 	public static function getModuleInfo() {
-	return array(
-		'title' => 'Admin Theme Reno',
-		'version' => 3,
-		'summary' => "Beta admin theme for Processwire 2.5",
-		'autoload' => "template=admin"
-	); 
+		return array(
+			'title' => 'Admin Theme Reno',
+			'version' => 4,
+			'summary' => "Beta admin theme for Processwire 2.5",
+			'autoload' => "template=admin"
+		); 
 	}
+
+	static $defaultIcons = array(
+		"page" => "fa-file-text",
+		"setup" => "fa-wrench",
+		"module" => "fa-briefcase",
+		"access" => "fa-unlock",
+		"form-builder" => "fa-list-alt"
+	);
+
+
+	public function __construct() {
+		foreach(self::$defaultIcons as $key => $value) {
+			$this->$key = $value;
+		}
+	}
+
 
 	public function init() {
 		parent::init();
 	}
 
+
 	public function ___install() {
 		parent::___install();
 	}
 
-	public static function getModuleConfigInputfields(array $data) {
 
+	public static function getModuleConfigInputfields(array $data) {
+		
 		$inputfields = new InputfieldWrapper();
 
 		// colorscheme
@@ -51,7 +69,6 @@ class AdminThemeReno extends AdminTheme implements Module, ConfigurableModule {
 				if(isset($data['avatar_field']) && $data['avatar_field'] == $f->name) {
 					$field->addOption($f->name, $f->name, array("selected"=>"selected"));
 					$imageField = true;
-				
 				} else {
 					$field->addOption($f->name, $f->name);
 					$imageField = true;
@@ -88,27 +105,15 @@ class AdminThemeReno extends AdminTheme implements Module, ConfigurableModule {
 
 		$fieldset->add($field);
 
-		// default sidebar icons
-		$defaultIcons = array(
-			"page" => "fa-file-text",
-			"setup" => "fa-wrench",
-			"module" => "fa-briefcase",
-			"access" => "fa-unlock",
-			"form-builder" => "fa-list-alt",
-		);
+		foreach (wire('pages')->find("parent=2, sort=sort") as $p){
 
-		// get viewable admin pages
-		$adminPages = wire('pages')->find("parent=2, sort=sort");
-
-		foreach ($adminPages as $p){
-
-			if (!$p->viewable()) return;
+			if (!$p->viewable()) continue;
 
 			$field = wire('modules')->get("InputfieldText");
 			$field->attr('name', $p->name);
 			$field->label = $p->title;
 			$field->columnWidth = 25;
-			$field->attr('value', array_key_exists($p->name, $defaultIcons) ? $defaultIcons[$p->name] : "fa-file-text-o");
+			$field->attr('value', array_key_exists($p->name, self::$defaultIcons) ? self::$defaultIcons[$p->name] : "fa-file-text-o");
 			if (isset($data[$p->name])) $field->attr('value', $data[$p->name]);
 
 			$fieldset->add($field);
