@@ -2963,7 +2963,6 @@ table {
 	padding-top: 0; 
 }
 .Inputfields .InputfieldFileUpload .AjaxUploadDropHere {
-	display: block;
 	opacity: 1;
 	color: #3c95cd; 
 }
@@ -4140,7 +4139,7 @@ ol,
 }
 .content .PageList .PageListItem > a.PageListPage i {
 	padding: 0 0.25em 0 0;
-	color: #8d939e; 
+	color: #97aab4; 
 }
 .content .PageList .PageListItem > a.PageListPage:hover i {
 	text-decoration: none; 

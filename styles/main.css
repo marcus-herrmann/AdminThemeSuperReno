@@ -2963,7 +2963,6 @@ table {
 	padding-top: 0; 
 }
 .Inputfields .InputfieldFileUpload .AjaxUploadDropHere {
-	display: block;
 	opacity: 1;
 	color: #e83561; 
 }
@@ -3272,7 +3271,8 @@ body {
 }
 
 body.modal {
-	background-color: white; 
+	background-color: white;
+	margin-top: 1em; 
 }
 
 body,
@@ -4090,6 +4090,11 @@ ol,
 .content .PageListSelectName i {
 	margin-right: 0.25em; 
 }
+.content .PageList .PageListItem:hover .PageListActions {
+	display: inline;
+	-webkit-transition-delay: .25s;
+	transition-delay: .25s; 
+}
 .content dl {
 	margin: 1em 0; 
 }
@@ -4140,7 +4145,7 @@ ol,
 }
 .content .PageList .PageListItem > a.PageListPage i {
 	padding: 0 0.25em 0 0;
-	color: #8d939e; 
+	color: #97aab4; 
 }
 .content .PageList .PageListItem > a.PageListPage:hover i {
 	text-decoration: none; 
@@ -4174,7 +4179,7 @@ ol,
 .content .AdminDataList tr:hover td,
 .content .AdminDataList tr:hover th,
 .content .AdminDataList tr.open td {
-	background: #f0f3f7; 
+	background: #ffffdd; 
 }
 .content .AdminDataList td a {
 	color: #e83561; 

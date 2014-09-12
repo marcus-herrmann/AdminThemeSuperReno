@@ -65,7 +65,8 @@ body {
 		color: $text-color; 
 	}
 	body.modal {
-		background-color: $text-bg; 
+		background-color: $text-bg;
+		margin-top: 1em;
 	}
 
 body, 
@@ -1005,6 +1006,12 @@ body.hasWireTabs #breadcrumbs {
 		i {
 			margin-right: 0.25em; 
 		}
+	}
+
+	.PageList .PageListItem:hover .PageListActions {
+		display: inline; 
+		-webkit-transition-delay: .25s; 
+  		transition-delay: .25s; 
 	}
 
 

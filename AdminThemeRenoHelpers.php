@@ -3,17 +3,20 @@
 /**
  * AdminThemeRenoHelpers.php
  * 
- * Rendering helper functions for use with ProcessWire admin theme.
- * 
- * __('FOR TRANSLATORS: please translate the file /wire/templates-admin/default.php rather than this one.'); 
+ * Rendering helper functions for use with for AdminThemeReno
+ * Copyright (C) 2014 by Tom Reno (Renobird)
+ * http://www.tomrenodesign.com
  *
- */ 
+ * ProcessWire 2.x
+ * Copyright (C) 2011 by Ryan Cramer
+ * Licensed under GNU/GPL v2, see LICENSE.TXT
+ *
+ * http://www.processwire.com
+ * http://www.ryancramer.com
+ * 
+ */
 
 class AdminThemeRenoHelpers extends WireData {
-
-	public function __construct() {
-		$renderType = $this->input->get->admin_theme_render;
-	}
 
 	/**
 	 * Perform a translation, based on text from shared admin file: /wire/templates-admin/default.php
@@ -57,7 +60,7 @@ class AdminThemeRenoHelpers extends WireData {
 			$title = $this->_($breadcrumb->title);
 			$out .= "<li><a href='{$breadcrumb->url}'>{$title}</a><i class='fa fa-angle-right'></i></li>";
 		}
-		if($appendCurrent) $out .= "<li class='title'>" . $this->getHeadline() . "</li>";
+		if($appendCurrent) $out .= "<li><a href='{$breadcrumb->url}'>{$this->getHeadline()}</a></li>";
 		return $out; 
 	}
 
@@ -297,8 +300,6 @@ class AdminThemeRenoHelpers extends WireData {
 				}
 			}
 		}
-
-		//if($p->name == 'page') wire('session')->redirect(wire('config')->urls->admin."page/list/");
 	
 		if(!$showItem) return '';
 	
@@ -311,7 +312,7 @@ class AdminThemeRenoHelpers extends WireData {
 		$out .= "<li>";
 	
 		if(count($children)) {
-			
+
 			$out .= "<a href='$p->url' class='$class $p->name '><i class='fa {$icon}'></i> $title</a>"; 
 			$out .= "<ul>";
 
@@ -325,7 +326,12 @@ class AdminThemeRenoHelpers extends WireData {
 					$isSuperuser && in_array($c->id, $quicklinks) ? $showQuickLinks = true : '';
 					$showQuickLinks ? $qlink = "<i class='quicklink-open fa fa-bolt'></i>" : $qlink = '';
 					
-					$out .= "<li><a href='$c->url' class='$class'>" . $this->_($c->title) . $qlink ."</a>";
+					$url = $c->url;
+			
+					// The /page/ and /page/list/ are the same process, so just keep them on /page/ instead. 
+					if(strpos($url, '/page/list/') !== false) $url = str_replace('/page/list/', '/page/', $url); 
+
+					$out .= "<li><a href='$url' class='$class'>" . $this->_($c->title) . $qlink ."</a>";
 						
 						if ($showQuickLinks){
 							$c->id == 11 ? $type = "templates" : '';
@@ -341,11 +347,6 @@ class AdminThemeRenoHelpers extends WireData {
 			$out .= "</ul>";
 
 		} else {
-
-			$url = $p->url;
-			
-			// The /page/ and /page/list/ are the same process, so just keep them on /page/ instead. 
-			if(strpos($url, '/page/list/') !== false) $url = str_replace('/page/list/', '/page/', $url); 
 			
 			$class = $class ? " class='$class $p->name'" : "class='$p->name'";
 			$out .= "<a href='$p->url' $class><i class='fa {$icon}'></i> $title</a>"; 

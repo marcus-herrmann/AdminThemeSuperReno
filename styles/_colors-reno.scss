@@ -188,7 +188,7 @@ $pagelist-link-hover-color: $pagelist-link-color;
 $pagelist-link-open-color: $dark-link;
 $pagelist-link-open-bg: #ffffdd; 
 $pagelist-link-active-color: $black; 
-$pagelist-link-icon-color: $medium-text-color;
+$pagelist-link-icon-color: $mainnav-icon-color;
 
 $pagination-font-size: 0.8em; 
 $pagination-link-color: $text-color;
@@ -241,7 +241,7 @@ $notices-border-top: '';
 $notices-border-bottom: 1px solid $border-color;
 
 $table-th-color: $secondary-link-color;
-$table-tr-hover: $subtle-bg;
+$table-tr-hover: $highlight-bg;
 $table-th-active-color: $green;
 
 // Datepicker

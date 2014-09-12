@@ -1,12 +1,18 @@
 <?php
 
 /**
- * default.php
+ * Default.php
  * 
- * Main markup template file for AdminThemeReno
- * 
- * __('FOR TRANSLATORS: please translate the file /wire/templates-admin/default.php rather than this one.');
- * 
+ * Main markup file for AdminThemeReno
+ * Copyright (C) 2014 by Tom Reno (Renobird)
+ * http://www.tomrenodesign.com
+ *
+ * ProcessWire 2.x
+ * Copyright (C) 2011 by Ryan Cramer
+ * Licensed under GNU/GPL v2, see LICENSE.TXT
+ *
+ * http://www.processwire.com
+ * http://www.ryancramer.com
  * 
  */
 
