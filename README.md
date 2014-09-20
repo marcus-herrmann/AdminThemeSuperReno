@@ -2,6 +2,7 @@
 
 ## Fork of [Admin Theme Reno](https://github.com/Renobird/AdminThemeReno) that adds features for super users
 
+* Add project/site name indicator
 * Environment indicator
 * Forum quicksearch in sidebar
 * Useful links in sidebar
