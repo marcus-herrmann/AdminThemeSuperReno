@@ -23,12 +23,13 @@ if(!isset($content)) $content = '';
 $searchForm = $user->hasPermission('page-edit') ? $modules->get('ProcessPageSearch')->renderSearchForm('Type here to search') : '';
 
 $config->styles->prepend($config->urls->adminTemplates . "styles/" . ($adminTheme->colors ? "$adminTheme->colors" : "main") . ".css?v=7"); 
+$config->styles->prepend($config->urls->adminTemplates . "styles/superreno.css");
 $config->styles->append($config->urls->root . "wire/templates-admin/styles/font-awesome/css/font-awesome.min.css");
 $config->scripts->append($config->urls->root . "wire/templates-admin/scripts/inputfields.js?v=5"); 
 $config->scripts->append($config->urls->adminTemplates . "scripts/main.js?v=5");
 
-require_once(dirname(__FILE__) . "/AdminThemeRenoHelpers.php");
-$helpers = new AdminThemeRenoHelpers();
+require_once(dirname(__FILE__) . "/AdminThemeSuperRenoHelpers.php");
+$helpers = new AdminThemeSuperRenoHelpers();
 
 ?>
 <!DOCTYPE html>
@@ -55,8 +56,15 @@ $helpers = new AdminThemeRenoHelpers();
 
 				<a href="" class='main-nav-toggle'><i class="fa fa-bars"></i></a>
 				<a id="logo" href="<?php echo $config->urls->admin?>">
-					<img src="<?php echo $config->urls->adminTemplates?>styles/images/logo.png" alt="ProcessWire" />
+
+                    <img src="<?php echo $config->urls->adminTemplates?>styles/images/logo.png" alt="ProcessWire" />
 					<img src="<?php echo $config->urls->adminTemplates?>styles/images/logo-sm.png" class='sm' alt="ProcessWire" />
+
+
+				</a>
+
+				<a href="<?php echo $config->urls->admin?>" id="superreno_sitename">
+					<?php echo $helpers->renderSiteName(); ?>
 				</a>
 
 				<?php echo tabIndent($searchForm, 3); ?>
@@ -68,9 +76,16 @@ $helpers = new AdminThemeRenoHelpers();
 		</div>
 
 		<div id="sidebar" class="mobile">
-			
+
+			<?php echo $helpers->renderEnvironmentIndicator(); ?>
+
+
 			<ul id="main-nav">
 				<?php echo $helpers->renderSideNavItems($page); ?>
+
+				<?php echo $helpers->renderForumSearch(); ?>
+
+				<?php echo $helpers->renderUsefulLinks(); ?>
 			</ul>
 
 		</div>

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AdminThemeRenoHelpers.php
+ * AdminThemeSuperRenoHelpers.php
  * 
  * Rendering helper functions for use with for AdminThemeReno
  * Copyright (C) 2014 by Tom Reno (Renobird)
@@ -16,7 +16,7 @@
  * 
  */
 
-class AdminThemeRenoHelpers extends WireData {
+class AdminThemeSuperRenoHelpers extends WireData {
 
 	/**
 	 * Perform a translation, based on text from shared admin file: /wire/templates-admin/default.php
@@ -435,6 +435,106 @@ class AdminThemeRenoHelpers extends WireData {
 			); 
 	
 		return "var config = " . json_encode($jsConfig);
+	}
+
+	/**
+	 * Render the site name
+	 *
+	 * @return string
+	 *
+	 */
+
+	public function renderSiteName() {
+		$adminTheme = $this->wire('adminTheme');
+		$user = $this->wire('user');
+
+		if ($user->isSuperuser()) {
+			return $adminTheme->sitename;
+		}
+	}
+
+
+	/**
+	 * Render the forum search form
+	 *
+	 * @return string
+	 *
+	 */
+
+	public function renderForumSearch() {
+
+		$user = $this->wire('user');
+
+		if ($user->isSuperuser()) {
+
+			return "<li><a href='https://processwire.com/talk/' class='parent forum-search'><i class='fa fa-comments'></i>" . $this->_('Forum search') . "</a>
+					<ul><li><form
+						action='https://processwire.com/talk/index.php?app=core&amp;module=search&amp;do=search'
+						method='post'
+						target='_blank'>
+							<fieldset>
+								<input type='text' name='search_term' placeholder='" . $this->_('Enter term and hit enter…') . "' id='search_term' tabindex='100'>
+								<input type='submit' id='search_submit' value='Search'>
+							</fieldset>
+						</form>
+						</li></ul></li>";
+		}
+
+	}
+
+
+	/**
+	 * Render environment indicator, if set
+	 *
+	 * @return string
+	 *
+	 */
+
+	public function renderEnvironmentIndicator() {
+		$environment = $this->wire('adminTheme')->environmentindicator;
+		$user = $this->wire('user');
+
+		if ($user->isSuperuser()) {
+
+			if ($environment && $environment != "none") {
+				return "<div class='module-environmentindicator module-environmentindicator--" . strtolower($environment) . "'><i class='fa fa-code'></i> " . $environment . "</div>";
+			}
+		}
+	}
+
+	/**
+	* Render useful links
+	*
+	* @return string
+	*
+	*/
+
+	public function renderUsefulLinks() {
+
+		$user = $this->wire('user');
+
+		if ($user->isSuperuser()) {
+
+			$links = array(
+				'API Documentation' => "https://processwire.com/api/",
+				'API Cheatsheet' => 'http://cheatsheet.processwire.com/',
+				'Selectors' => 'https://processwire.com/api/selectors/',
+				'Captain Hook' => 'http://processwire.com/api/hooks/captain-hook/',
+				'Tutorials' => 'https://processwire.com/docs/tutorials/');
+
+			$list = "<li><a href='https://processwire.com/talk/' class='parent useful-links'><i class='fa fa-book'></i>" . $this->_('Useful links') . "</a>
+					<ul><li>
+						<ul class='module-usefullinks-list'>";
+
+			foreach ($links as $label => $url) {
+				$list .= "<li  class='module-usefullinks__item'><a href='" . $url . "'>" . $label . "</a></li>";
+			}
+			$list .= "</ul></li></ul></li>";
+
+			return $list;
+
+		}
+
 	}
 
 }

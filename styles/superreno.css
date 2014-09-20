@@ -1,0 +1,48 @@
+#superreno_sitename {
+  line-height: 48px;
+  padding-left: 15px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff; }
+
+.forum-search + ul form {
+  margin: 0 20px; }
+.forum-search + ul #search_term {
+  width: 169px; }
+.forum-search + ul #search_submit {
+  display: none; }
+.forum-search + ul ::-webkit-input-placeholder {
+  font-size: 12px; }
+.forum-search + ul ::-moz-placeholder {
+  font-size: 12px; }
+.forum-search + ul :-ms-input-placeholder {
+  font-size: 12px; }
+.forum-search + ul input:-moz-placeholder {
+  font-size: 12px; }
+
+.module-environmentindicator {
+  padding: 5px 20px;
+  font-size: 12px;
+  color: #fff; }
+
+.module-environmentindicator--development {
+  background: #589c51; }
+
+.module-environmentindicator--staging {
+  background: #ab8859; }
+
+.module-environmentindicator--production {
+  background: #a9585b; }
+
+#sidebar #main-nav li .module-usefullinks-list {
+  display: block;
+  position: relative;
+  left: auto;
+  top: auto;
+  background: transparent;
+  margin: 0 20px;
+  padding-bottom: 0;
+  overflow: hidden;
+  width: 190px; }
+  #sidebar #main-nav li .module-usefullinks-list li {
+    line-height: 1.5; }

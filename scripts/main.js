@@ -55,7 +55,7 @@ var ProcessWireAdminTheme = {
 		});
 
 		$("#main-nav a.parent").click(function(){
-			$(this).toggleClass('open').next('ul').slideToggle('fast');
+			$(this).toggleClass('open').next('ul').eq(0).slideToggle('fast');
 			return false;
 		});
 

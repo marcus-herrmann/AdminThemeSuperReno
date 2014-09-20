@@ -1,6 +1,6 @@
 <?php
 
-class AdminThemeReno extends AdminTheme implements Module, ConfigurableModule {
+class AdminThemeSuperReno extends AdminTheme implements Module, ConfigurableModule {
 
 	/**
 	* Per the Module interface, return an array of information about the Module
@@ -8,11 +8,11 @@ class AdminThemeReno extends AdminTheme implements Module, ConfigurableModule {
 	*/
 	public static function getModuleInfo() {
 		return array(
-			'title' => 'Admin Theme Reno',
+			'title' => 'Admin Theme SuperReno',
 			'version' => 6,
-			'summary' => "Admin theme for Processwire 2.5",
+			'summary' => "Fork of Admin theme Reno with added super user functionality",
 			'autoload' => "template=admin",
-			'author' => "Tom Reno (Renobird)"
+			'author' => "Core: Tom Reno (Renobird), Super user additions: Marcus Herrmann (marcus)"
 		); 
 	}
 
@@ -48,16 +48,37 @@ class AdminThemeReno extends AdminTheme implements Module, ConfigurableModule {
 		
 		$inputfields = new InputfieldWrapper();
 
+		// environment indicator
+		$field = wire('modules')->get('InputfieldRadios');
+		$field->attr('name', 'environmentindicator');
+		$field->label = __('Environment Indicator');
+		$field->addOption('none', __('None'));
+		$field->addOption('Production', __('Production'));
+		$field->addOption('Staging', __('Staging'));
+		$field->addOption('Development', __('Development'));
+		$field->attr('value', isset($data['environmentindicator']) ? $data['environmentindicator'] : 'none');
+		$field->optionColumns = 1;
+		$inputfields->add($field);
+
+
+		$field = wire('modules')->get('InputfieldText');
+		$field->name = 'sitename';
+		$field->label = "Enter the name of your site";
+		if(isset($data['sitename'])) $field->value = $data['sitename'];
+		$inputfields->add($field);
+
+
 		// colorscheme
 		$field = wire('modules')->get('InputfieldRadios');
 		$field->attr('name', 'colors');
-		$field->label = __('Color Set'); 
+		$field->label = __('Color Set');
 		$field->addOption('', __('Reno'));
 		$field->addOption('classic', __('Classic'));
 		$field->addOption('blue', __('Blue'));
-		$field->attr('value', isset($data['colors']) ? $data['colors'] : ''); 
-		$field->optionColumns = 1; 
+		$field->attr('value', isset($data['colors']) ? $data['colors'] : '');
+		$field->optionColumns = 1;
 		$inputfields->add($field);
+
 
 		// user avatar
 		$template = wire('templates')->get("user");
