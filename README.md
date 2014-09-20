@@ -1,5 +1,10 @@
-# Admin Theme Reno
+# Admin Theme SuperReno
 
-An alternate core admin theme for ProcessWire CMS.
-This theme is included as part of the ProcessWire as of version 2.5.
-Please visit modules > site > admin in your installation to install.
+## Fork of [Admin Theme Reno](https://github.com/Renobird/AdminThemeReno) that adds features for super users
+
+* Environment indicator
+* Forum quicksearch in sidebar
+* Useful links in sidebar
+
+![Screenshot](http://dateien.marcus.io/mail/superreno_screen_1_2014-09-20_19-25-59_2014-09-20_19-26-01.jpg)
+
